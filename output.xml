@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0.1 (Python 3.12.3 on linux)" generated="2024-10-29T18:55:04.282605" rpa="false" schemaversion="5">
+<suite id="s1" name="Demo" source="/home/gokula-prasath-m/Documents/dummy/demo.robot">
+<test id="s1-t1" name="Verify JSON Data Matches UI Table Data" line="9">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:04.493168" level="INFO">Opening browser 'Chrome' to base url 'https://testpages.herokuapp.com/styled/tag/dynamic-table.html'.</msg>
+<arg>${url}</arg>
+<arg>Chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2024-10-29T18:55:04.492907" elapsed="3.225313"/>
+</kw>
+<kw name="Get File" owner="OperatingSystem">
+<msg time="2024-10-29T18:55:07.719666" level="INFO" html="true">Getting file '&lt;a href="file:///home/gokula-prasath-m/Documents/dummy/data.json"&gt;/home/gokula-prasath-m/Documents/dummy/data.json&lt;/a&gt;'.</msg>
+<msg time="2024-10-29T18:55:07.720142" level="INFO">${json_content} = [
+    {"name": "Bob", "age" : 20, "gender": "male"},
+    {"name": "George", "age": 42, "gender": "male"},
+    {"name": "Sara", "age": 42, "gender": "female"},
+    {"name": "Conor", "age": 40, "gender"...</msg>
+<var>${json_content}</var>
+<arg>${JSON_FILE_PATH}</arg>
+<doc>Returns the contents of a specified file.</doc>
+<status status="PASS" start="2024-10-29T18:55:07.719026" elapsed="0.001217"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-10-29T18:55:07.721729" level="INFO">${JSON_DATA} = [{'name': 'Bob', 'age': 20, 'gender': 'male'}, {'name': 'George', 'age': 42, 'gender': 'male'}, {'name': 'Sara', 'age': 42, 'gender': 'female'}, {'name': 'Conor', 'age': 40, 'gender': 'male'}, {'name'...</msg>
+<var>${JSON_DATA}</var>
+<arg>json.loads('''${json_content}''')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-10-29T18:55:07.720834" elapsed="0.001000"/>
+</kw>
+<kw name="Convert Json To String" owner="JSONLibrary">
+<msg time="2024-10-29T18:55:07.723043" level="INFO">${JSON_DATA} = [{"name": "Bob", "age": 20, "gender": "male"}, {"name": "George", "age": 42, "gender": "male"}, {"name": "Sara", "age": 42, "gender": "female"}, {"name": "Conor", "age": 40, "gender": "male"}, {"name"...</msg>
+<var>${JSON_DATA}</var>
+<arg>${JSON_DATA}</arg>
+<doc>Convert JSON object to string</doc>
+<status status="PASS" start="2024-10-29T18:55:07.722414" elapsed="0.000734"/>
+</kw>
+<kw name="Input JSON Data" owner="Keyword">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:07.726514" level="INFO">Clicking element 'xpath=//*[contains(text(), 'Table Data')]'.</msg>
+<arg>${Table_data_button}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:07.725026" elapsed="0.089465"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Dynamic HTML TABLE Tag</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2024-10-29T18:55:07.815121" elapsed="0.019102"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${INPUT_FIELD}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2024-10-29T18:55:07.834595" elapsed="0.032197"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:07.867627" level="INFO">Typing text '[{"name": "Bob", "age": 20, "gender": "male"}, {"name": "George", "age": 42, "gender": "male"}, {"name": "Sara", "age": 42, "gender": "female"}, {"name": "Conor", "age": 40, "gender": "male"}, {"name": "Jennifer", "age": 42, "gender": "female"}]' into text field 'xpath=//textarea[@id='jsondata']'.</msg>
+<arg>${INPUT_FIELD}</arg>
+<arg>${json_data}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:07.867073" elapsed="0.195878"/>
+</kw>
+<arg>${JSON_DATA}</arg>
+<status status="PASS" start="2024-10-29T18:55:07.723923" elapsed="0.339202"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.063706" level="INFO">Clicking element 'xpath=//button[@id='refreshtable']'.</msg>
+<arg>${SUBMIT_BUTTON}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.063420" elapsed="0.035833"/>
+</kw>
+<kw name="Get Table Data As List Of Dicts" owner="Keyword">
+<kw name="Get WebElements" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.111950" level="INFO">${rows} = [&lt;selenium.webdriver.remote.webelement.WebElement (session="50be778058e6d4e1c199e1ee63697662", element="f.7B732003040C23982EE8DF2C1DE5CE10.d.6BFD59BCE449738075BAC407B4BA4CBE.e.23")&gt;, &lt;selenium.webdriv...</msg>
+<var>${rows}</var>
+<arg>${table_locator}//tr[position()&gt;1]</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.101199" elapsed="0.010828"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2024-10-29T18:55:08.112701" level="INFO">Length is 5.</msg>
+<msg time="2024-10-29T18:55:08.112863" level="INFO">${row_len} = 5</msg>
+<var>${row_len}</var>
+<arg>${rows}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.112366" elapsed="0.000539"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2024-10-29T18:55:08.113386" level="INFO">${data} = []</msg>
+<var>${data}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.113184" elapsed="0.000242"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Get WebElements" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.139050" level="INFO">${cells} = [&lt;selenium.webdriver.remote.webelement.WebElement (session="50be778058e6d4e1c199e1ee63697662", element="f.7B732003040C23982EE8DF2C1DE5CE10.d.6BFD59BCE449738075BAC407B4BA4CBE.e.28")&gt;, &lt;selenium.webdriv...</msg>
+<var>${cells}</var>
+<arg>${table_locator}//tr[${row}]//td</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.114198" elapsed="0.024969"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.162243" level="INFO">${name} = Bob</msg>
+<var>${name}</var>
+<arg>${cells[0]}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.139515" elapsed="0.022813"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.174004" level="INFO">${age_str} = 20</msg>
+<var>${age_str}</var>
+<arg>${cells[1]}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.162666" elapsed="0.011415"/>
+</kw>
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2024-10-29T18:55:08.174859" level="INFO">${age} = 20</msg>
+<var>${age}</var>
+<arg>${age_str}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.174417" elapsed="0.000494"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.187492" level="INFO">${gender} = male</msg>
+<var>${gender}</var>
+<arg>${cells[2]}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.175166" elapsed="0.012395"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-29T18:55:08.188609" level="INFO">${entry} = {'name': 'Bob', 'age': 20, 'gender': 'male'}</msg>
+<var>${entry}</var>
+<arg>name=${name}</arg>
+<arg>age=${age}</arg>
+<arg>gender=${gender}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.187860" elapsed="0.000800"/>
+</kw>
+<kw name="Append To List" owner="Collections">
+<arg>${data}</arg>
+<arg>${entry}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.188892" elapsed="0.000299"/>
+</kw>
+<var name="${row}">2</var>
+<status status="PASS" start="2024-10-29T18:55:08.113992" elapsed="0.075291"/>
+</iter>
+<iter>
+<kw name="Get WebElements" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.206416" level="INFO">${cells} = [&lt;selenium.webdriver.remote.webelement.WebElement (session="50be778058e6d4e1c199e1ee63697662", element="f.7B732003040C23982EE8DF2C1DE5CE10.d.6BFD59BCE449738075BAC407B4BA4CBE.e.31")&gt;, &lt;selenium.webdriv...</msg>
+<var>${cells}</var>
+<arg>${table_locator}//tr[${row}]//td</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.189985" elapsed="0.016506"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.219038" level="INFO">${name} = George</msg>
+<var>${name}</var>
+<arg>${cells[0]}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.206788" elapsed="0.012337"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.229687" level="INFO">${age_str} = 42</msg>
+<var>${age_str}</var>
+<arg>${cells[1]}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.219431" elapsed="0.010326"/>
+</kw>
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2024-10-29T18:55:08.230441" level="INFO">${age} = 42</msg>
+<var>${age}</var>
+<arg>${age_str}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.230038" elapsed="0.000462"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.241108" level="INFO">${gender} = male</msg>
+<var>${gender}</var>
+<arg>${cells[2]}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.230832" elapsed="0.010344"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-29T18:55:08.242049" level="INFO">${entry} = {'name': 'George', 'age': 42, 'gender': 'male'}</msg>
+<var>${entry}</var>
+<arg>name=${name}</arg>
+<arg>age=${age}</arg>
+<arg>gender=${gender}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.241467" elapsed="0.000645"/>
+</kw>
+<kw name="Append To List" owner="Collections">
+<arg>${data}</arg>
+<arg>${entry}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.242326" elapsed="0.000254"/>
+</kw>
+<var name="${row}">3</var>
+<status status="PASS" start="2024-10-29T18:55:08.189753" elapsed="0.052910"/>
+</iter>
+<iter>
+<kw name="Get WebElements" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.258381" level="INFO">${cells} = [&lt;selenium.webdriver.remote.webelement.WebElement (session="50be778058e6d4e1c199e1ee63697662", element="f.7B732003040C23982EE8DF2C1DE5CE10.d.6BFD59BCE449738075BAC407B4BA4CBE.e.34")&gt;, &lt;selenium.webdriv...</msg>
+<var>${cells}</var>
+<arg>${table_locator}//tr[${row}]//td</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.243087" elapsed="0.015370"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.271913" level="INFO">${name} = Sara</msg>
+<var>${name}</var>
+<arg>${cells[0]}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.258740" elapsed="0.013246"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.284345" level="INFO">${age_str} = 42</msg>
+<var>${age_str}</var>
+<arg>${cells[1]}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.272297" elapsed="0.012117"/>
+</kw>
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2024-10-29T18:55:08.285069" level="INFO">${age} = 42</msg>
+<var>${age}</var>
+<arg>${age_str}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.284692" elapsed="0.000437"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.295779" level="INFO">${gender} = female</msg>
+<var>${gender}</var>
+<arg>${cells[2]}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.285387" elapsed="0.010464"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-29T18:55:08.296748" level="INFO">${entry} = {'name': 'Sara', 'age': 42, 'gender': 'female'}</msg>
+<var>${entry}</var>
+<arg>name=${name}</arg>
+<arg>age=${age}</arg>
+<arg>gender=${gender}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.296160" elapsed="0.000637"/>
+</kw>
+<kw name="Append To List" owner="Collections">
+<arg>${data}</arg>
+<arg>${entry}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.297012" elapsed="0.000278"/>
+</kw>
+<var name="${row}">4</var>
+<status status="PASS" start="2024-10-29T18:55:08.242914" elapsed="0.054460"/>
+</iter>
+<iter>
+<kw name="Get WebElements" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.313611" level="INFO">${cells} = [&lt;selenium.webdriver.remote.webelement.WebElement (session="50be778058e6d4e1c199e1ee63697662", element="f.7B732003040C23982EE8DF2C1DE5CE10.d.6BFD59BCE449738075BAC407B4BA4CBE.e.37")&gt;, &lt;selenium.webdriv...</msg>
+<var>${cells}</var>
+<arg>${table_locator}//tr[${row}]//td</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.297795" elapsed="0.015944"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.327093" level="INFO">${name} = Conor</msg>
+<var>${name}</var>
+<arg>${cells[0]}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.314239" elapsed="0.012924"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.335819" level="INFO">${age_str} = 40</msg>
+<var>${age_str}</var>
+<arg>${cells[1]}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.327420" elapsed="0.008460"/>
+</kw>
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2024-10-29T18:55:08.336530" level="INFO">${age} = 40</msg>
+<var>${age}</var>
+<arg>${age_str}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.336158" elapsed="0.000420"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.346574" level="INFO">${gender} = male</msg>
+<var>${gender}</var>
+<arg>${cells[2]}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.336794" elapsed="0.009843"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-29T18:55:08.347499" level="INFO">${entry} = {'name': 'Conor', 'age': 40, 'gender': 'male'}</msg>
+<var>${entry}</var>
+<arg>name=${name}</arg>
+<arg>age=${age}</arg>
+<arg>gender=${gender}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.346912" elapsed="0.000637"/>
+</kw>
+<kw name="Append To List" owner="Collections">
+<arg>${data}</arg>
+<arg>${entry}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.347767" elapsed="0.000268"/>
+</kw>
+<var name="${row}">5</var>
+<status status="PASS" start="2024-10-29T18:55:08.297622" elapsed="0.050513"/>
+</iter>
+<iter>
+<kw name="Get WebElements" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.364346" level="INFO">${cells} = [&lt;selenium.webdriver.remote.webelement.WebElement (session="50be778058e6d4e1c199e1ee63697662", element="f.7B732003040C23982EE8DF2C1DE5CE10.d.6BFD59BCE449738075BAC407B4BA4CBE.e.40")&gt;, &lt;selenium.webdriv...</msg>
+<var>${cells}</var>
+<arg>${table_locator}//tr[${row}]//td</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.348591" elapsed="0.015919"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.376470" level="INFO">${name} = Jennifer</msg>
+<var>${name}</var>
+<arg>${cells[0]}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.364906" elapsed="0.011629"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.388010" level="INFO">${age_str} = 42</msg>
+<var>${age_str}</var>
+<arg>${cells[1]}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.376811" elapsed="0.011265"/>
+</kw>
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2024-10-29T18:55:08.388778" level="INFO">${age} = 42</msg>
+<var>${age}</var>
+<arg>${age_str}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.388406" elapsed="0.000419"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-10-29T18:55:08.399960" level="INFO">${gender} = female</msg>
+<var>${gender}</var>
+<arg>${cells[2]}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.389040" elapsed="0.010981"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-29T18:55:08.400959" level="INFO">${entry} = {'name': 'Jennifer', 'age': 42, 'gender': 'female'}</msg>
+<var>${entry}</var>
+<arg>name=${name}</arg>
+<arg>age=${age}</arg>
+<arg>gender=${gender}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.400361" elapsed="0.000645"/>
+</kw>
+<kw name="Append To List" owner="Collections">
+<arg>${data}</arg>
+<arg>${entry}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.401227" elapsed="0.000262"/>
+</kw>
+<var name="${row}">6</var>
+<status status="PASS" start="2024-10-29T18:55:08.348404" elapsed="0.053170"/>
+</iter>
+<var>${row}</var>
+<value>2</value>
+<value>${row_len}+2</value>
+<status status="PASS" start="2024-10-29T18:55:08.113542" elapsed="0.288128"/>
+</for>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-10-29T18:55:08.402318" level="INFO">${data} = [{"name": "Bob", "age": 20, "gender": "male"}, {"name": "George", "age": 42, "gender": "male"}, {"name": "Sara", "age": 42, "gender": "female"}, {"name": "Conor", "age": 40, "gender": "male"}, {"name"...</msg>
+<var>${data}</var>
+<arg>"${data}".replace("'", '"')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.401908" elapsed="0.000459"/>
+</kw>
+<kw name="Convert To String" owner="BuiltIn">
+<msg time="2024-10-29T18:55:08.402838" level="INFO">${data} = [{"name": "Bob", "age": 20, "gender": "male"}, {"name": "George", "age": 42, "gender": "male"}, {"name": "Sara", "age": 42, "gender": "female"}, {"name": "Conor", "age": 40, "gender": "male"}, {"name"...</msg>
+<var>${data}</var>
+<arg>${data}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.402563" elapsed="0.000318"/>
+</kw>
+<return>
+<value>${data}</value>
+<status status="PASS" start="2024-10-29T18:55:08.402987" elapsed="0.000101"/>
+</return>
+<msg time="2024-10-29T18:55:08.403356" level="INFO">${table_data} = [{"name": "Bob", "age": 20, "gender": "male"}, {"name": "George", "age": 42, "gender": "male"}, {"name": "Sara", "age": 42, "gender": "female"}, {"name": "Conor", "age": 40, "gender": "male"}, {"name"...</msg>
+<var>${table_data}</var>
+<arg>${TABLE_LOCATOR}</arg>
+<status status="PASS" start="2024-10-29T18:55:08.100296" elapsed="0.303108"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${table_data}</arg>
+<arg>${JSON_DATA}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.403744" elapsed="0.000430"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-29T18:55:08.404679" level="INFO">[{"name": "Bob", "age": 20, "gender": "male"}, {"name": "George", "age": 42, "gender": "male"}, {"name": "Sara", "age": 42, "gender": "female"}, {"name": "Conor", "age": 40, "gender": "male"}, {"name": "Jennifer", "age": 42, "gender": "female"}]:[{"name": "Bob", "age": 20, "gender": "male"}, {"name": "George", "age": 42, "gender": "male"}, {"name": "Sara", "age": 42, "gender": "female"}, {"name": "Conor", "age": 40, "gender": "male"}, {"name": "Jennifer", "age": 42, "gender": "female"}]</msg>
+<arg>${table_data}:${JSON_DATA}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.404435" elapsed="0.000320"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2024-10-29T18:55:08.405037" elapsed="0.071346"/>
+</kw>
+<status status="PASS" start="2024-10-29T18:55:04.491575" elapsed="3.985096"/>
+</test>
+<status status="PASS" start="2024-10-29T18:55:04.284044" elapsed="4.193218"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Demo">Demo</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2024-10-29T18:55:04.410971" level="WARN">Error in file '/home/gokula-prasath-m/Documents/dummy/Keyword.robot' on line 41: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+</errors>
+</robot>
